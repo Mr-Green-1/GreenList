@@ -16,7 +16,7 @@ function App() {
 
     function removeTask(id: string, todolistId: string) {
         let tasks = tasksObj[todolistId];
-        tasksObj[todolistId] = tasks.filter(s => s.id != id);
+        tasksObj[todolistId] = tasks.filter(s => s.id !== id);
         setTasks({...tasksObj});
     }
 
@@ -66,6 +66,13 @@ function App() {
         ]
     });
 
+    let removeTodolist = (todolistId: string) => {
+        let filteredTodolist = todolists.filter(tl => tl.id !== todolistId);
+        setTodolists(filteredTodolist);
+        delete tasksObj[todolistId];
+        setTasks({...tasksObj});
+    }
+
 
     return (
         <div className="App">
@@ -90,7 +97,8 @@ function App() {
                         changeFilter={changeFilter}
                         addTask={addTask}
                         changeTaskStatus={changeStatus}
-                        filter={tl.filter}/>
+                        filter={tl.filter}
+                        removeTodolist={removeTodolist}/>
                 })
             }
         </div>
