@@ -22,19 +22,6 @@ export function Todolist(props: PropsType) {
     const [newTaskTitle, setNewTaskTitle] = useState('');
     const [error, setError] = useState<string | null>(null);
 
-    const onNewTitleChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setNewTaskTitle(event.currentTarget.value)
-    };
-
-    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if (event.charCode === 13) {
-            props.addTask(newTaskTitle);
-            setNewTaskTitle('')
-        }
-    };
-
-
     const addTask = () => {
         if (newTaskTitle.trim() !== '') {
             props.addTask(newTaskTitle.trim());
@@ -43,6 +30,18 @@ export function Todolist(props: PropsType) {
             setError('Title is required');
         }
     };
+
+    const onNewTitleChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setNewTaskTitle(event.currentTarget.value)
+    };
+
+    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        setError(null);
+        if (event.charCode === 13) {
+            addTask();
+        }
+    };
+
 
     const onAllClickHandler = () => props.changeFilter('all');
     const onActiveClickHandler = () => props.changeFilter('active');
